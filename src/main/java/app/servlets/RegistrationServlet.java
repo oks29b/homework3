@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class RegistrationServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -20,11 +21,30 @@ public class RegistrationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         String password = req.getParameter("pass");
-        User user = new User(name, password);
-        Model model = Model.getInstance();
-        model.add(user);
+        String repassword = req.getParameter("repass");
 
-        req.setAttribute("userName", name);
-        doGet(req, resp);
+        PrintWriter pw = resp.getWriter();
+        if (name.isEmpty() || password.isEmpty() || repassword.isEmpty()) {
+            pw.println("<html>");
+            pw.println("<body>");
+            pw.println("Fill all fields!");
+            pw.println("</body>");
+            pw.println("</html>");
+
+        } else if (!password.equals(repassword)) {
+            pw.println("<html>");
+            pw.println("<body>");
+            pw.println("Access denied!");
+            pw.println("</body>");
+            pw.println("</html>");
+
+        } else {
+            User user = new User(name, password);
+            Model model = Model.getInstance();
+            model.add(user);
+
+            req.setAttribute("userName", name);
+            doGet(req, resp);
+        }
     }
 }

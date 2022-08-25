@@ -29,6 +29,13 @@
             </div>
         </div>
 
+<br>
+<br>
+        <div>
+            <button onclick="location.href='/registration'">Back to registration</button>
+        </div>
+<br>
+<br>
         <div>
             <button onclick="location.href='/'">Back to main</button>
         </div>
