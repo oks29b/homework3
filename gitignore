@@ -44,3 +44,6 @@ docker-compose.yml
 # Ignore coverage files
 /coverage
 .tool-versions
+
+# Ignore all target
+/target/

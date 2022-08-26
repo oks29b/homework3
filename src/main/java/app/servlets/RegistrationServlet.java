@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -39,6 +40,9 @@ public class RegistrationServlet extends HttpServlet {
             pw.println("</html>");
 
         } else {
+            HttpSession session = req.getSession();
+            session.setAttribute("user" , name);
+
             User user = new User(name, password);
             Model model = Model.getInstance();
             model.add(user);
